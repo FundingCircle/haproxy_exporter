@@ -63,7 +63,7 @@ const (
 var (
 	frontendLabelNames = []string{"frontend"}
 	backendLabelNames  = []string{"backend"}
-	serverLabelNames   = []string{"backend", "server"}
+	serverLabelNames   = []string{"backend", "sid", "server"}
 )
 
 func newFrontendMetric(metricName string, docString string, constLabels prometheus.Labels) *prometheus.Desc {
@@ -355,7 +355,7 @@ func (e *Exporter) parseRow(csvRow []string, ch chan<- prometheus.Metric) {
 		return
 	}
 
-	pxname, svname, typ := csvRow[0], csvRow[1], csvRow[32]
+	pxname, svname, sid, typ := csvRow[0], csvRow[1], csvRow[28], csvRow[32]
 
 	const (
 		frontend = "0"
@@ -369,7 +369,7 @@ func (e *Exporter) parseRow(csvRow []string, ch chan<- prometheus.Metric) {
 	case backend:
 		e.exportCsvFields(backendMetrics, csvRow, ch, pxname)
 	case server:
-		e.exportCsvFields(e.serverMetrics, csvRow, ch, pxname, svname)
+		e.exportCsvFields(e.serverMetrics, csvRow, ch, pxname, sid, svname)
 	}
 }
 
