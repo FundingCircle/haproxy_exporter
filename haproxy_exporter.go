@@ -58,6 +58,7 @@ const (
 	pxnameField        = 0
 	svnameField        = 1
 	statusField        = 17
+	sidField           = 28
 	typeField          = 32
 	checkDurationField = 38
 	qtimeMsField       = 58
@@ -73,7 +74,7 @@ const (
 var (
 	frontendLabelNames = []string{"frontend"}
 	backendLabelNames  = []string{"backend"}
-	serverLabelNames   = []string{"backend", "server"}
+	serverLabelNames   = []string{"backend", "sid", "server"}
 )
 
 type metricInfo struct {
@@ -452,7 +453,7 @@ func (e *Exporter) parseRow(csvRow []string, ch chan<- prometheus.Metric) {
 		return
 	}
 
-	pxname, svname, status, typ := csvRow[pxnameField], csvRow[svnameField], csvRow[statusField], csvRow[typeField]
+	pxname, svname, status, sid, typ := csvRow[pxnameField], csvRow[svnameField], csvRow[statusField], csvRow[sidField], csvRow[typeField]
 
 	const (
 		frontend = "0"
@@ -468,7 +469,7 @@ func (e *Exporter) parseRow(csvRow []string, ch chan<- prometheus.Metric) {
 	case server:
 
 		if _, ok := e.excludedServerStates[status]; !ok {
-			e.exportCsvFields(e.serverMetrics, csvRow, ch, pxname, svname)
+			e.exportCsvFields(e.serverMetrics, csvRow, ch, pxname, sid, svname)
 		}
 	}
 }
