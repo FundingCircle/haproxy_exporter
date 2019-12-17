@@ -1,4 +1,4 @@
-module github.com/prometheus/haproxy_exporter
+module github.com/FundingCircle/haproxy_exporter
 
 go 1.14
 
