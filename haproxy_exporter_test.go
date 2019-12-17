@@ -116,6 +116,26 @@ foo,BACKEND,0,0,0,0,,0,0,0,,0,,0,0,0,0,UP,1,1,0,0,0,5007,0,,1,8,1,,0,,2,
 	expectMetrics(t, e, "older_haproxy_versions.metrics")
 }
 
+func TestDuplicatedBackendServers(t *testing.T) {
+	const data = `service-0,FRONTEND,,,0,0,10000,0,0,0,0,0,0,,,,,OPEN,,,,,,,,,1,25,0,,,,0,0,0,0,,,,0,0,0,0,0,0,,0,0,0,,,0,0,0,0,,,,,,,,,,,,,,,,,,,,,http,,0,0,0,0,0,0,
+service-0,service-0-server-0,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,0,1,135,135,,1,363,14908,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-1,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,1,1,135,135,,1,363,1498,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-1,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,0,1,135,135,,1,363,25913,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-1,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,1,1,135,135,,1,363,1200,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-1,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,0,1,135,135,,1,363,2371,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-2,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,1,1,135,135,,1,363,26277,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,service-0-server-3,0,0,0,0,,0,0,0,,0,,0,0,0,0,DOWN,1,1,0,0,1,135,135,,1,363,20477,,0,,2,0,,0,L4CON,,0,0,0,0,0,0,0,,,,,0,0,,,,,-1,Connection refused,,0,0,0,0,,,,Layer4 connection problem,,2,6,0,,,,,,http,,,,,,,,
+service-0,BACKEND,0,0,0,0,3000,0,0,0,0,0,,0,0,0,0,DOWN,0,0,0,,1,134,134,,1,363,0,,0,,1,0,,0,,,,0,0,0,0,0,0,,,,0,0,0,0,0,0,0,-1,,,0,0,0,0,,,,,,,,,,,,,,http,,,,,,,,
+`
+
+	h := newHaproxy([]byte(data))
+	defer h.Close()
+
+	e, _ := NewExporter(h.URL, true, serverMetrics, 5*time.Second, log.NewNopLogger())
+
+	expectMetrics(t, e, "duplicated_backend_servers.metrics")
+}
+
 func TestConfigChangeDetection(t *testing.T) {
 	h := newHaproxy([]byte(""))
 	defer h.Close()
