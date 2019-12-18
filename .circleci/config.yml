@@ -6,7 +6,7 @@ jobs:
     docker:
     - image: circleci/golang:1.15
 
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    working_directory: /go/src/github.com/FundingCircle/haproxy_exporter
     steps:
     - checkout
     - run: make
