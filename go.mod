@@ -1,4 +1,4 @@
-module github.com/prometheus/haproxy_exporter
+module github.com/FundingCircle/haproxy_exporter
 
 go 1.14
 
@@ -11,3 +11,5 @@ require (
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
+
+go 1.13
