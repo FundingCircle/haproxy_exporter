@@ -91,11 +91,36 @@ make test
 
 [circleci]: https://circleci.com/gh/FundingCircle/haproxy_exporter
 
+### Releases
+
+https://github.com/FundingCircle/haproxy_exporter/releases
+
+0. Bump the VERSION file and merge to master
+1. Create a tag and then create a release
+2. Publish binaries:
+
+```
+git checkout <your-tag>
+
+promu crossbuild
+promu crossbuild tarballs
+
+" You'll need
+" brew install github-release
+" export GITHUB_TOKEN=<your token from https://github.com/settings/tokens>
+
+promu release -v .tarballs/
+```
+
 ## License
 
-Apache License 2.0, see [LICENSE](https://github.com/prometheus/haproxy_exporter/blob/master/LICENSE).
+Apache License 2.0, see [prometheus/haproxy_exporter/LICENSE](https://github.com/prometheus/haproxy_exporter/blob/master/LICENSE), [FundingCircle/haproxy_exporter/LICENSE](https://github.com/FundingCircle/haproxy_exporter/blob/master/LICENSE).
 
 ## Alternatives
+
+### Official Repo
+
+https://github.com/prometheus/haproxy_exporter
 
 ### Official Prometheus exporter
 
