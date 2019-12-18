@@ -1,4 +1,4 @@
-module github.com/prometheus/haproxy_exporter
+module github.com/FundingCircle/haproxy_exporter
 
 require (
 	github.com/go-kit/kit v0.8.0
@@ -6,3 +6,5 @@ require (
 	github.com/prometheus/common v0.4.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
+
+go 1.13
