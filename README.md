@@ -1,9 +1,11 @@
 # HAProxy Exporter for Prometheus
 
+Fork of https://github.com/prometheus/haproxy_exporter
+
 This is a simple server that scrapes HAProxy stats and exports them via HTTP for
 Prometheus consumption.
 
-***Note:** since HAProxy 2.0.0, the official source includes a Prometheus exporter module that can be built into your binary with a single flag during build time and offers an exporter-free Prometheus endpoint. More information [down below](#official-prometheus-exporter).*
+**\*Note:** since HAProxy 2.0.0, the official source includes a Prometheus exporter module that can be built into your binary with a single flag during build time and offers an exporter-free Prometheus endpoint. More information [down below](#official-prometheus-exporter).*
 
 ## Getting Started
 
@@ -19,11 +21,9 @@ Help on flags:
 ./haproxy_exporter --help
 ```
 
-For more information check the [source code documentation][gdocs]. All of the
-core developers are accessible via the Prometheus Developers [mailinglist][].
+For more information check the [source code documentation][gdocs].
 
-[gdocs]: http://godoc.org/github.com/prometheus/haproxy_exporter
-[mailinglist]: https://groups.google.com/forum/?fromgroups#!forum/prometheus-developers
+[gdocs]: https://godoc.org/github.com/FundingCircle/haproxy_exporter
 
 ## Usage
 
@@ -75,28 +75,6 @@ The scrape URL uses the 'unix:' scheme:
 haproxy_exporter --haproxy.scrape-uri=unix:/run/haproxy/admin.sock
 ```
 
-### Docker
-
-[![Docker Repository on Quay](https://quay.io/repository/prometheus/haproxy-exporter/status)][quay]
-[![Docker Pulls](https://img.shields.io/docker/pulls/prom/haproxy-exporter.svg?maxAge=604800)][hub]
-
-To run the haproxy exporter as a Docker container, run:
-
-```bash
-docker run -p 9101:9101 quay.io/prometheus/haproxy-exporter:v0.9.0 --haproxy.scrape-uri="http://user:pass@haproxy.example.com/haproxy?stats;csv"
-```
-
-[hub]: https://hub.docker.com/r/prom/haproxy-exporter/
-[quay]: https://quay.io/repository/prometheus/haproxy-exporter
-
-## Development
-
-[![Go Report Card](https://goreportcard.com/badge/github.com/prometheus/haproxy_exporter)][goreportcard]
-[![Code Climate](https://codeclimate.com/github/prometheus/haproxy_exporter/badges/gpa.svg)][codeclimate]
-
-[goreportcard]: https://goreportcard.com/report/github.com/prometheus/haproxy_exporter
-[codeclimate]: https://codeclimate.com/github/prometheus/haproxy_exporter
-
 ### Building
 
 ```bash
@@ -105,15 +83,13 @@ make build
 
 ### Testing
 
-[![Build Status](https://travis-ci.org/prometheus/haproxy_exporter.png?branch=master)][travisci]
-[![CircleCI](https://circleci.com/gh/prometheus/haproxy_exporter/tree/master.svg?style=shield)][circleci]
+[![CircleCI](https://circleci.com/gh/FundingCircle/haproxy_exporter/tree/master.svg?style=shield)][circleci]
 
 ```bash
 make test
 ```
 
-[travisci]: https://travis-ci.org/prometheus/haproxy_exporter
-[circleci]: https://circleci.com/gh/prometheus/haproxy_exporter
+[circleci]: https://circleci.com/gh/FundingCircle/haproxy_exporter
 
 ## License
 

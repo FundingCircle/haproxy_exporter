@@ -1,9 +1,9 @@
 go:
-    # Whenever the Go version is updated here, .travis.yml and
+    # Whenever the Go version is updated here and
     # .circle/config.yml should also be updated.
-    version: 1.12
+    version: 1.13
 repository:
-    path: github.com/prometheus/haproxy_exporter
+    path: github.com/FundingCircle/haproxy_exporter
 build:
     flags: -mod=vendor -a -tags netgo
     ldflags: |
