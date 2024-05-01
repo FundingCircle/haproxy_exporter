@@ -1,5 +1,8 @@
 # HAProxy Exporter for Prometheus
 
+> [!Caution]
+> HAProxy is deprecated at Funding Circle and there is no longer a build pipeline in this repo. If updates are required in the future, a new build pipeline should be added.
+
 Fork of https://github.com/prometheus/haproxy_exporter
 
 This is a simple server that scrapes HAProxy stats and exports them via HTTP for
